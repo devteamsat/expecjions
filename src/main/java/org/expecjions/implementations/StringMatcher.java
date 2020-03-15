@@ -10,7 +10,7 @@ public interface StringMatcher extends CombinableMatcher<String, StringMatcher> 
 				MatcherResult.mismatch();
 	}
 
-	default MatcherResult start(String with) {
+	default MatcherResult startWith(String with) {
 		return getContext().getValue().startsWith(with)?
 				MatcherResult.match() :
 				MatcherResult.mismatch();

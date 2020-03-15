@@ -21,21 +21,21 @@ public class StringMatcherTest {
 	}
 
 	@Test void stringStartsWithMatcherIsMismatchWhenStringDoesNotStartWithSubstring() {
-		MatcherResult matcherResult = matcherFor(StringMatcher.class, new Matcher.Context<>("foo")).start("ba");
+		MatcherResult matcherResult = matcherFor(StringMatcher.class, new Matcher.Context<>("foo")).startWith("ba");
 
 		expect(matcherResult, MatchMatcher.class, to -> to.beMismatch());
 	}
 
 	@Test void stringStartsWithMatcherIsMatchWhenStringDoesStartWithSubstring() {
-		MatcherResult matcherResult = matcherFor(StringMatcher.class, new Matcher.Context<>("bar")).start("ba");
+		MatcherResult matcherResult = matcherFor(StringMatcher.class, new Matcher.Context<>("bar")).startWith("ba");
 
 		expect(matcherResult, MatchMatcher.class, to -> to.beMatch());
 	}
 
 	@Test void stringStartWithMatcherDescriptionFitsError() {
 		Matcher.Context<String> context = new Matcher.Context<>("foo");
-		MatcherResult matcherResult = context.unwrap(matcherFor(StringMatcher.class, context).start("bar"));
+		MatcherResult matcherResult = context.unwrap(matcherFor(StringMatcher.class, context).startWith("bar"));
 
-		expect(matcherResult.describe(), to -> to.start("start with \"bar\""));
+		expect(matcherResult.describe(), to -> to.startWith("start with \"bar\""));
 	}
 }

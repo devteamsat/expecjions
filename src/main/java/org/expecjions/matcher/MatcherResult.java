@@ -36,7 +36,7 @@ public abstract class MatcherResult {
 		}
 		int previousLongestLine = Stream.of(previousDescription.split("\r?\n"))
 				.map(String::trim)
-				.reduce(0, (r, line) -> Math.max(r, line.length()), (r1, r2) -> r2);
+				.reduce(0, (r, line) -> Math.max(r, line.length()+1), (r1, r2) -> r2);
 		previousDescription = indentPrevious(previousDescription, (methodName+" ").length());
 
 		String readableName = methodName
@@ -52,6 +52,10 @@ public abstract class MatcherResult {
 		if(params!=null && !params.isEmpty()) {
 			return " "+params.stream().reduce("", (r, p)->{
 				String separator = (r.length() > 0)? ", ": "";
+
+				if(p.getName() == null) {
+					return r+separator+"\""+p.getValue()+"\"";
+				}
 
 				return r+separator+p.getName()+" \""+p.getValue()+"\"";
 			}, (r1, r2)->r2);

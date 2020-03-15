@@ -39,8 +39,12 @@ public interface Matcher<V> {
 
 			List<Param> params = new LinkedList<>();
 			for(int i=0; i<parameters.length; i++) {
-				String name = parameters[i].isNamePresent()? parameters[i].getName() : "arg"+i;
-				params.add(new Param(name, args[i]));
+				if(i==0) {
+					params.add(new Param(null, args[i]));
+				} else {
+					String name = parameters[i].isNamePresent() ? parameters[i].getName() : "arg" + i;
+					params.add(new Param(name, args[i]));
+				}
 			}
 			combination.params = params;
 
